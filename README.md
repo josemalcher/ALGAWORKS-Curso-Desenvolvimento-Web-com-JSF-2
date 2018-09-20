@@ -153,6 +153,29 @@ public class OlaMundo extends HttpServlet {
 
 ![mvc](https://github.com/josemalcher/ALGAWORKS-Curso-Desenvolvimento-Web-com-JSF-2/blob/master/readme-img/mvc.png?raw=true)
 
+
+#### 2.2-baixando-uma-implementacao-jsf-v1
+
+- https://javaserverfaces.github.io/download.html
+
+#### 2.3. Codificando o primeiro projeto
+
+```xhtml
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"	>
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Olá Mundo!!</title>
+</h:head>
+<h:body>
+	<h:inputText value="Digite seu nome aqui!!" />
+	<h:commandButton value="Clique Aqui" />	
+</h:body>
+</html>
+```
+
 [Voltar ao Índice](#indice)
 
 ---
