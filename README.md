@@ -149,6 +149,9 @@ public class OlaMundo extends HttpServlet {
 
 ## <a name="parte2">Desenvolvimento com JavaServer Faces</a>
 
+#### 2.1-o-que-e-jsf-v1
+
+![mvc](https://github.com/josemalcher/ALGAWORKS-Curso-Desenvolvimento-Web-com-JSF-2/blob/master/readme-img/mvc.png?raw=true)
 
 [Voltar ao Índice](#indice)
 
