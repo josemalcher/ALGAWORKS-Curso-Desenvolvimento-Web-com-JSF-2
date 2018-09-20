@@ -90,6 +90,58 @@
 
 ## <a name="parte1">Aplicações web com Java</a>
 
+1.8. Uma aplicação Java web simples  
+
+```java
+package com.algaworks;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/OlaMundo")
+public class OlaMundo extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
+		out.println("<html>");
+		out.println("<body>");
+		out.println("<h1>Olá MUndo</h1>");
+		out.println("Testando o Servlet do curso");
+		out.println("</body>");
+		out.println("</html>");
+	}
+
+}
+
+```
+
+```jsp
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+	<jsp:directive.page contentType="text/html; charset=ISO-8859-1" 
+		pageEncoding="ISO-8859-1" session="false"/>
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+		omit-xml-declaration="true" />
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Olá mundo</title>
+</head>
+<body>
+	<h1>Ola mundo</h1>
+	<p>teste</p>
+</body>
+</html>
+</jsp:root>
+```
 
 [Voltar ao Índice](#indice)
 
