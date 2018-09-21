@@ -2,7 +2,6 @@ package com.algawork.cursojsf2;
 
 import javax.faces.bean.ManagedBean;
 
-@SuppressWarnings("deprecation")
 @ManagedBean
 public class OlaMundoBean {
 	private String nome;

@@ -266,6 +266,67 @@ public class OlaMundoBean {
 
 ```
 
+#### 2.7. Backing beans
+
+```java
+package com.algaworlks.cursosjsf2;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.component.html.HtmlCommandButton;
+import javax.faces.component.html.HtmlInputText;
+
+@ManagedBean
+public class TesteBean {
+	private HtmlInputText campo;
+	private HtmlCommandButton botao;
+	public HtmlInputText getCampo() {
+		return campo;
+	}
+	public void setCampo(HtmlInputText campo) {
+		this.campo = campo;
+	}
+	public HtmlCommandButton getBotao() {
+		return botao;
+	}
+	public void setBotao(HtmlCommandButton botao) {
+		this.botao = botao;
+	}
+	
+	public void testar() {
+		if(this.campo.isDisabled()) {
+			this.campo.setDisabled(false);
+			this.botao.setStyle("");
+		}else {
+			this.campo.setDisabled(true);
+			this.botao.setStyle("background-color: red; color: white");	
+		}
+		
+	}
+}
+
+```
+
+```html
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"	>
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Testes!!</title>
+</h:head>
+<h:body>
+	<h:form>
+		Seu nome: <h:inputText binding="#{testeBean.campo}"  />
+		<h:commandButton value="Enviar" binding="#{testeBean.botao}" action="#{testeBean.testar}" />
+		<br/>
+		
+	</h:form>	
+</h:body>
+</html>
+```
+
+
 [Voltar ao Índice](#indice)
 
 ---
