@@ -199,6 +199,73 @@ public class OlaMundo extends HttpServlet {
 </web-app>
 ```
 
+#### 2.5. Managed beans
+
+```xhtml
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"	>
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Olá Mundo!!</title>
+</h:head>
+<h:body>
+	<h:form>
+		Seu nome: <h:inputText value="#{olaMundoBean.nome}"  />
+		<h:commandButton value="Enviar" action="#{olaMundoBean.enviar}" />
+		<br/>
+		Nome Digitado: #{olaMundoBean.nome}
+	</h:form>	
+</h:body>
+</html>
+```
+
+```java
+package com.algawork.cursojsf2;
+
+import javax.faces.bean.ManagedBean;
+
+@SuppressWarnings("deprecation")
+@ManagedBean
+public class OlaMundoBean {
+	private String nome;
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public void enviar() {
+		this.setNome(this.getNome().toUpperCase());
+	}
+	
+}
+
+
+```
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+    version="2.0">
+    
+    <managed-bean>
+    	<managed-bean-name>olaMundoBeans</managed-bean-name>
+    	<managed-bean-class>com.algaworks.cursojsf2.OlaMundoBean</managed-bean-class>
+    	<managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+</faces-config>
+
+```
+
 [Voltar ao Índice](#indice)
 
 ---
