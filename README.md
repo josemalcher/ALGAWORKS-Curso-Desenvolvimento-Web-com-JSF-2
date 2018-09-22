@@ -430,6 +430,126 @@ public class GestaoProdutoBean{
 </html>
 ```
 
+#### 2.9-outros-escopos-de-managed-beans-v1
+
+```java
+package com.cursojsf2.dominio;
+
+import java.io.Serializable;
+
+public class Produto implements Serializable {
+	private String nome;
+	private String fabricante;
+	private String categoria;
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public String getFabricante() {
+		return fabricante;
+	}
+	public void setFabricante(String fabricante) {
+		this.fabricante = fabricante;
+	}
+	public String getCategoria() {
+		return categoria;
+	}
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+	
+	
+}
+
+```
+
+```java
+package com.cursojsf2.visao;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+
+import com.cursojsf2.dominio.Produto;
+
+@ManagedBean
+//@ViewScoped
+@RequestScoped //padrão
+//@NoneScoped
+public class GestaoProdutoBean implements Serializable {
+	private List<Produto> produtos;
+	private Produto produto;
+	
+	public GestaoProdutoBean() {
+		this.produtos = new ArrayList<Produto>();
+		this.produto = new Produto();
+	}
+	
+	public void incluir() {
+		this.produtos.add(this.produto);
+		this.produto = new Produto();
+	}
+
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public Produto getProduto() {
+		return produto;
+	}
+	
+	@PostConstruct
+	public void inicializar() {
+		System.out.println("Inicializou o Bean");
+	}
+	
+	@PreDestroy
+	public void finalizar() {
+		System.out.println("Finalizou o Bean");
+	}
+}
+
+```
+
+```xhtml
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"	>
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Gestão de Produtos</title>
+</h:head>
+<h:body>
+	<h:form>
+		Nome: <h:inputText value="#{gestaoProdutoBean.produto.nome}" />
+		<br/>
+		Fabricante<h:inputText value="#{gestaoProdutoBean.produto.fabricante}" />
+		<br/>
+		Categoria<h:inputText value="#{gestaoProdutoBean.produto.categoria}" />
+		<h:commandButton value="Incluir" action="#{gestaoProdutoBean.incluir}" />
+		<br/>
+		
+	</h:form>	
+	
+	<ol>
+		<ui:repeat var="item" value="#{gestaoProdutoBean.produtos}">
+			<li>#{item.nome}   -   #{item.fabricante}   -  #{item.categoria}</li>
+		</ui:repeat>
+	</ol>
+</h:body>
+</html>
+
+```
+
 
 [Voltar ao Índice](#indice)
 
