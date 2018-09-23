@@ -550,6 +550,25 @@ public class GestaoProdutoBean implements Serializable {
 
 ```
 
+#### 2.11-usando-navegacao-implicita-v1
+
+```
+<h:commandLink value="Ajuda sobre esta Tela" action="#{gestaoProdutoBean.obterAjuda}"/>
+```
+
+```java
+	
+	public String obterAjuda() {
+		if(this.produtos.isEmpty()) {
+			return "AjudaGestaoProdto?faces-redirect=true";
+		}else {
+			return "AjudaGestaoProdtoTelefone?faces-redirect=true";
+		}
+	}
+	
+```
+
+
 
 [Voltar ao Índice](#indice)
 

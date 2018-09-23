@@ -8,13 +8,12 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 import com.cursojsf2.dominio.Produto;
 
 @ManagedBean
-//@ViewScoped
-@RequestScoped //padrão
-//@NoneScoped
+@SessionScoped
 public class GestaoProdutoBean implements Serializable {
 	private List<Produto> produtos;
 	private Produto produto;
@@ -47,7 +46,13 @@ public class GestaoProdutoBean implements Serializable {
 		System.out.println("Finalizou o Bean");
 	}
 	
-	
+	public String obterAjuda() {
+		if(this.produtos.isEmpty()) {
+			return "AjudaGestaoProdto?faces-redirect=true";
+		}else {
+			return "AjudaGestaoProdtoTelefone?faces-redirect=true";
+		}
+	}
 	
 	
 	
