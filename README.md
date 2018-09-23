@@ -568,7 +568,166 @@ public class GestaoProdutoBean implements Serializable {
 	
 ```
 
+#### 2.12-manipulando-eventos-de-acao-v1
 
+```xhtml
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:f="http://java.sun.com/jsf/core"	>
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Gestão de Produtos</title>
+</h:head>
+<h:body>
+	<h:form>
+		<h:commandLink value="Ajuda sobre esta Tela" action="#{gestaoProdutoBean.obterAjuda}">
+			 <f:actionListener binding="#{registroCliqueBotaoListener}"/>
+			 <!-- <f:actionListener type="com.cursojsf2.visao.registroCliqueBotaoListener"/> --> 
+		</h:commandLink>
+		<br/><br/>
+		
+		
+		Nome: <h:inputText value="#{gestaoProdutoBean.produto.nome}" />
+		<br/>
+		Fabricante<h:inputText value="#{gestaoProdutoBean.produto.fabricante}" />
+		<br/>
+		Categoria<h:inputText value="#{gestaoProdutoBean.produto.categoria}" />
+		<h:commandButton value="Incluir" action="#{gestaoProdutoBean.incluir}"  
+										 actionListener="#{gestaoProdutoBean.verificarInclusao}">
+			<f:actionListener binding="#{registroCliqueBotaoListener}"/>
+		</h:commandButton>
+		
+		<br/>
+		
+	</h:form>	
+	
+	<h:form>
+	<ol>
+		<ui:repeat var="item" value="#{gestaoProdutoBean.produtos}">
+			<li>
+			#{item.nome}   -   #{item.fabricante}   -  #{item.categoria}
+			<h:commandButton value="Excluir" action="#{gestaoProdutoBean.excluir}">
+				<f:setPropertyActionListener value="#{item}" target="#{gestaoProdutoBean.produtoSelecionado}" />
+			</h:commandButton>
+			</li>
+		</ui:repeat>
+	</ol>
+	</h:form>
+</h:body>
+</html>
+```
+
+```java
+package com.cursojsf2.visao;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.event.ActionEvent;
+
+import com.cursojsf2.dominio.Produto;
+
+
+@ManagedBean
+@SessionScoped
+public class GestaoProdutoBean implements Serializable {
+	private List<Produto> produtos;
+	private Produto produto;
+	
+	private Produto produtoSelecionado;
+	
+	public GestaoProdutoBean() {
+		this.produtos = new ArrayList<Produto>();
+		this.produto = new Produto();
+	}
+	
+	public void incluir() {
+		System.out.println("Incluindo!");
+		this.produtos.add(this.produto);
+		this.produto = new Produto();
+	}
+
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public Produto getProduto() {
+		return produto;
+	}
+	
+	
+	
+	public Produto getProdutoSelecionado() {
+		return produtoSelecionado;
+	}
+
+	public void setProdutoSelecionado(Produto produtoSelecionado) {
+		this.produtoSelecionado = produtoSelecionado;
+	}
+
+	@PostConstruct
+	public void inicializar() {
+		System.out.println("Inicializou o Bean");
+	}
+	
+	@PreDestroy
+	public void finalizar() {
+		System.out.println("Finalizou o Bean");
+	}
+	
+	public String obterAjuda() {
+		if(this.produtos.isEmpty()) {
+			return "AjudaGestaoProdto?faces-redirect=true";
+		}else {
+			return "AjudaGestaoProdtoTelefone?faces-redirect=true";
+		}
+	}
+	
+	public void verificarInclusao(ActionEvent event) {
+		System.out.println("Verificando....");
+		if("".equals(this.produto.getFabricante())) {
+			this.produto.setFabricante("Sem Fabricante");
+		}
+	}
+	
+	public void excluir() {
+		this.produtos.remove(this.produtoSelecionado);
+	}
+	
+	
+	
+}
+
+```
+
+```java
+package com.cursojsf2.visao;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ActionEvent;
+import javax.faces.event.ActionListener;
+
+@ManagedBean
+public class RegistroCliqueBotaoListener implements ActionListener{
+
+	@Override
+	public void processAction(ActionEvent event) throws AbortProcessingException {
+		System.out.println("Clicando no botão " + event.getComponent().getId());
+		
+	}
+	
+}
+
+```
 
 [Voltar ao Índice](#indice)
 
