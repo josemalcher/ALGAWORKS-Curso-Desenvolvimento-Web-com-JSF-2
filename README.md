@@ -880,6 +880,92 @@ public class GestaoProdutoBean implements Serializable {
 
 ## <a name="parte3">Principais componentes</a>
 
+#### 3.1-atributos-comuns-de-componentes-v1
+
+```xhtml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Atributos Comuns</title>
+		
+		<style>
+			.campo {
+				background-color: #c0c0c0;
+				padding: 4px
+			}
+			
+			.campo:focus {
+				background-color: yellow;
+			}
+		</style>
+		
+		<script>
+			function validar() {
+				campoEmail = document.getElementById('newsletterForm:email');
+				
+				if (campoEmail.value == '') {
+					alert('Informe seu e-mail!');
+					return false;
+				}
+				alert('e-mail... ok!');
+				return true;
+			}
+		</script>
+	</h:head>
+	<h:body>
+		<h:form id="newsletterForm">
+			<h:outputLabel value="Assine nossa newsletter" rendered="true" />
+			<br/>
+			
+			<h:inputText value="Seu e-mail aqui" 
+				size="40" maxlength="30" 
+				title="Informe seu e-mail aqui"
+				onfocus="this.value = ''" 
+				id="email" 
+				style="font-size: 19px" styleClass="campo" />
+				
+			<h:commandButton value="Assinar" 
+				onclick="return validar()" 
+				id="assinarBotao" />
+		</h:form>
+	</h:body>
+</html>
+```
+
+#### 3.2-entradas-saidas-de-texto-e-imagens-v1
+
+#### 3.3-menus-caixas-de-listagem-e-itens-de-selecao-v1
+
+#### 3.4-campos-de-checagem-e-botoes-radio-v1
+
+#### 3.5-botoes-e-links-v1
+
+#### 3.6-paineis-v1
+
+#### 3.7-mensagens-v1
+
+#### 3.8-tabelas-de-dados-v1
+
+#### 3.9-componentes-dentro-de-celulas-v1
+
+#### 3.10-aplicando-estilos-em-tabelas-v1
+
+#### 3.11-arquivos-javascript-e-css-v1
+
+#### 3.13-projeto-do-curso-protitipando-tela-de-consulta-de-lanca
+
+#### 3.14-projeto-do-curso-prototipando-tela-de-novo-lancamento-v
+
+[Voltar ao Índice](#indice)
+
+---
+
+
 ## <a name="parte4">Conversão e validação</a>
 
 [Voltar ao Índice](#indice)
