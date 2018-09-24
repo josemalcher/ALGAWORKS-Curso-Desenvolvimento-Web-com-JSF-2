@@ -939,6 +939,78 @@ public class GestaoProdutoBean implements Serializable {
 
 #### 3.2-entradas-saidas-de-texto-e-imagens-v1
 
+```java
+package com.cursojsf2;
+
+import javax.faces.bean.ManagedBean;
+
+@ManagedBean
+public class CadastroCVBean {
+	private String vaga = "A0382D";
+	private String cargo = "Programador Java Senior";
+	
+	public String getVaga() {
+		return vaga;
+	}
+	public void setVaga(String vaga) {
+		this.vaga = vaga;
+	}
+	public String getCargo() {
+		return cargo;
+	}
+	public void setCargo(String cargo) {
+		this.cargo = cargo;
+	}
+}
+
+```
+
+```xhtml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Entrada e Saída de textos e imagens</title>
+	</h:head>
+	<h:body>
+		<h:form>
+			<h:graphicImage value="/img/algaworks.png" />
+			<br/>
+		
+			<h:outputText value="Cadastro de currículo para vaga #{cadastroCVBean.vaga}" 
+				style="font-weight: bold; font-size: 22px" />
+			<br/>
+			
+			<h:outputFormat value="Vaga {0} - Cargo {1}" style="color: red">
+				<f:param value="#{cadastroCVBean.vaga}"/>
+				<f:param value="#{cadastroCVBean.cargo}"/>
+			</h:outputFormat>
+			
+			<br/><br/>
+			
+			<h:outputLabel value="E-mail" for="email"/><br/>
+			<h:inputText size="60" id="email" />
+			<br/>
+			
+			<h:outputLabel value="Senha"/><br/>
+			<h:inputSecret size="40"/>
+			<br/>
+			
+			<h:outputLabel value="Qualificações"/><br/>
+			<h:inputTextarea cols="60" rows="5" />
+			<br/>
+				
+			<h:commandButton value="Cadastrar" />
+		</h:form>
+	</h:body>
+</html>
+```
+
+
 #### 3.3-menus-caixas-de-listagem-e-itens-de-selecao-v1
 
 #### 3.4-campos-de-checagem-e-botoes-radio-v1
