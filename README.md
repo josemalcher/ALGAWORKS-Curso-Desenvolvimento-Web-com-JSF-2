@@ -870,6 +870,10 @@ public class GestaoProdutoBean implements Serializable {
 
 #### 2.15-ciclo-de-vida-v1
 
+![Primeira Requisição](https://github.com/josemalcher/ALGAWORKS-Curso-Desenvolvimento-Web-com-JSF-2/blob/master/readme-img/primeira_requisicao.png?raw=true)
+
+![postback](https://github.com/josemalcher/ALGAWORKS-Curso-Desenvolvimento-Web-com-JSF-2/blob/master/readme-img/postback.png?raw=true)
+
 [Voltar ao Índice](#indice)
 
 ---
