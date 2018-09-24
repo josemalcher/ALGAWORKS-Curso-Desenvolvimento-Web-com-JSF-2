@@ -729,6 +729,147 @@ public class RegistroCliqueBotaoListener implements ActionListener{
 
 ```
 
+#### 2.13-manipulando-eventos-de-mudanca-de-valor-v1
+
+```java
+package com.cursojsf2.visao;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.event.ValueChangeEvent;
+
+import com.cursojsf2.dominio.Produto;
+
+
+@ManagedBean
+@SessionScoped
+public class GestaoProdutoBean implements Serializable {
+
+	private String nomePesquisa;
+	private List<Produto> produtos;
+	private List<Produto> produtosFiltrados;
+	private Produto produto;
+	
+	private Produto produtoSelecionado;
+
+	public GestaoProdutoBean() {
+		this.produtos = new ArrayList<Produto>();
+		this.produtosFiltrados = new ArrayList<Produto>();
+		this.produto = new Produto();
+	}
+	
+	public void nomePesquisaAlterado(ValueChangeEvent event) {
+		System.out.println("Valor atual: " + this.nomePesquisa);
+		System.out.println("Novo valor: " + event.getNewValue());
+		
+		this.produtosFiltrados.clear();
+		
+		for (Produto produto : this.produtos) {
+			if (produto.getNome() != null && produto.getNome().toLowerCase()
+					.startsWith(event.getNewValue().toString().toLowerCase())) {
+				this.produtosFiltrados.add(produto);
+			}
+		}
+	}
+	
+	public void incluir() {
+		this.produtos.add(this.produto);
+		this.produto = new Produto();
+	}
+	
+	public void excluir() {
+		this.produtos.remove(this.produtoSelecionado);
+	}
+	
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public Produto getProdutoSelecionado() {
+		return produtoSelecionado;
+	}
+
+	public void setProdutoSelecionado(Produto produtoSelecionado) {
+		this.produtoSelecionado = produtoSelecionado;
+	}
+
+	public String getNomePesquisa() {
+		return nomePesquisa;
+	}
+
+	public void setNomePesquisa(String nomePesquisa) {
+		this.nomePesquisa = nomePesquisa;
+	}
+
+	public List<Produto> getProdutosFiltrados() {
+		return produtosFiltrados;
+	}
+}
+
+```
+
+```xhtml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Gestão de Produtos</title>
+	</h:head>
+	<h:body>
+		<h:form>
+			Nome:
+			<h:inputText value="#{gestaoProdutoBean.produto.nome}" />
+			<br/>
+			
+			Fabricante:
+			<h:inputText value="#{gestaoProdutoBean.produto.fabricante}" />
+			<br/>
+			
+			Categoria:
+			<h:inputText value="#{gestaoProdutoBean.produto.categoria}" />
+			<br/>
+			
+			<h:commandButton value="Incluir" action="#{gestaoProdutoBean.incluir}"/>
+		</h:form>
+
+		<br/>
+		<h:form>
+			Pesquisa por nome:
+			<h:inputText value="#{gestaoProdutoBean.nomePesquisa}" 
+				valueChangeListener="#{gestaoProdutoBean.nomePesquisaAlterado}"	onchange="submit()"/>
+		</h:form>
+
+		<h:form>
+			<ol>
+				<ui:repeat var="item" value="#{gestaoProdutoBean.produtosFiltrados}">
+					<li>
+						#{item.nome} - #{item.fabricante} - #{item.categoria}
+						<h:commandButton value="Excluir" action="#{gestaoProdutoBean.excluir}">
+							<f:setPropertyActionListener target="#{gestaoProdutoBean.produtoSelecionado}" value="#{item}" />
+						</h:commandButton>
+					</li>
+				</ui:repeat>
+			</ol>
+		</h:form>
+	</h:body>
+</html>
+```
+
+
+#### 2.15-ciclo-de-vida-v1
+
 [Voltar ao Índice](#indice)
 
 ---
