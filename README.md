@@ -1637,6 +1637,137 @@ public class ConsultaClienteBean {
 
 #### 3.9-componentes-dentro-de-celulas-v1
 
+```java
+package com.cursojsf2;
+
+public class Cliente {
+
+	private Integer codigo;
+	private String nome;
+	private String cidade;
+	
+	public Cliente(Integer codigo, String nome, String cidade) {
+		this.codigo = codigo;
+		this.nome = nome;
+		this.cidade = cidade;
+	}
+	
+	public Integer getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public String getCidade() {
+		return cidade;
+	}
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+	
+}
+```
+
+```java
+package com.cursojsf2;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
+@ManagedBean
+@ViewScoped
+public class ConsultaClienteBean {
+
+	private List<Cliente> clientes = new ArrayList<Cliente>();
+	
+	public void consultar() {
+		this.getClientes().add(new Cliente(1, "Pedro Pereira", "Uberlândia"));
+		this.getClientes().add(new Cliente(2, "José da Silva", "Araguari"));
+		this.getClientes().add(new Cliente(4, "Joaquim Manoel", "Uberaba"));
+		this.getClientes().add(new Cliente(6, "Sebastião Souza", "São Paulo"));
+		this.getClientes().add(new Cliente(7, "Joana Carvalho", "Uberlândia"));
+		this.getClientes().add(new Cliente(10, "Maria José", "Rio de Janeiro"));
+	}
+	
+	public void salvar() {
+		for (Cliente cliente : this.getClientes()) {
+			System.out.println(cliente.getCodigo() + " - " + cliente.getNome());
+		}// salvar no bd
+	}
+	
+	public List<Cliente> getClientes() {
+		return this.clientes;
+	}
+	
+}
+```
+
+```xhtml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Consulta de clientes</title>
+	</h:head>
+	<h:body>
+		<h:form id="frm">
+			<h:commandButton value="Consultar" action="#{consultaClienteBean.consultar}"/>
+			
+			<h:dataTable value="#{consultaClienteBean.clientes}" var="item" border="1"
+					rendered="#{not empty consultaClienteBean.clientes}">
+				
+				<h:column>
+					<f:facet name="header">
+						Código
+					</f:facet>
+				
+					<h:inputText value="#{item.codigo}" size="2"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						Nome
+					</f:facet>
+					
+					<h:outputLink value="http://www.google.com.br/search?q=#{item.nome}">
+						<h:outputText value="#{item.nome}"/>
+					</h:outputLink>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						Cidade
+					</f:facet>
+				
+					<h:outputText value="#{item.cidade}"/>
+					<h:outputLink value="https://www.google.com.br/search?tbm=isch&amp;q=#{item.cidade}">
+						<h:graphicImage value="/img/fotos.png"/>
+					</h:outputLink>
+				</h:column>
+				
+			</h:dataTable>
+			
+			<h:commandButton value="Salvar" action="#{consultaClienteBean.salvar}"
+				rendered="#{not empty consultaClienteBean.clientes}"/>
+			
+		</h:form>
+	</h:body>
+</html>
+```
+
 #### 3.10-aplicando-estilos-em-tabelas-v1
 
 #### 3.11-arquivos-javascript-e-css-v1
