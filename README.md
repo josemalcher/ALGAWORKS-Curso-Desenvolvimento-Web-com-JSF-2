@@ -1261,6 +1261,91 @@ public class PerfilUsuarioBean {
 
 #### 3.5-botoes-e-links-v1
 
+```java
+package com.cursojsf2;
+
+import javax.faces.bean.ManagedBean;
+
+@ManagedBean
+public class FormularioBean {
+
+	private String nome;
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
+}
+```
+
+```xhtml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Botões e links</title>
+	</h:head>
+	<h:body>
+		<h:form id="frm">
+			Nome:
+			<h:inputText value="#{formularioBean.nome}" />
+			<br/>
+			
+			<!-- 
+			<h:commandButton value="Enviar" action="Resultado" />
+			 -->
+			<h:commandLink value="Enviar" action="Resultado" />			 
+			<h:commandButton value="Limpar" type="reset"/>
+			
+			<br/><br/><br/>
+			
+			<h:outputLink value="http://www.google.com.br">
+				Google
+				<f:param name="q" value="AlgaWorks"/>
+				<f:param name="teste" value="123"/>
+			</h:outputLink>
+			<br/>
+			<h:link value="Ir para Resultado" outcome="Resultado"/>
+		</h:form>
+	</h:body>
+</html>
+```
+
+```xhtml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Botões e links</title>
+	</h:head>
+	<h:body>
+		<h:form id="frm">
+			Nome informado: #{formularioBean.nome}
+			<br/>
+		
+			<h:commandButton image="/img/voltar.png" action="Formulario"/>
+			
+			<h:commandLink action="Formulario">
+				<h:graphicImage value="/img/voltar.png"/>
+			</h:commandLink>
+			 
+		</h:form>
+	</h:body>
+</html>
+```
+
 #### 3.6-paineis-v1
 
 #### 3.7-mensagens-v1
