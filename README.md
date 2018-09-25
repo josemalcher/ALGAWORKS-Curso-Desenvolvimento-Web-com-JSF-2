@@ -1149,6 +1149,116 @@ public class TimesFavoritosBean {
 
 #### 3.4-campos-de-checagem-e-botoes-radio-v1
 
+```java
+package com.cursojsf2;
+
+import javax.faces.bean.ManagedBean;
+
+@ManagedBean
+public class PerfilUsuarioBean {
+	private String sexo;
+	private boolean receverNovidades;
+	private String[] linguagensFavoritas;
+	
+	public String enviar() {
+		return "Confirmacao";// página
+	}
+	
+	public String getSexo() {
+		return sexo;
+	}
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+	public boolean isReceverNovidades() {
+		return receverNovidades;
+	}
+	public void setReceverNovidades(boolean receverNovidades) {
+		this.receverNovidades = receverNovidades;
+	}
+	public String[] getLinguagensFavoritas() {
+		return linguagensFavoritas;
+	}
+	public void setLinguagensFavoritas(String[] linguagensFavoritas) {
+		this.linguagensFavoritas = linguagensFavoritas;
+	}
+	
+	
+}
+
+```
+
+```xhtml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Perfil do usuário</title>
+	</h:head>
+	<h:body>
+		<h:form id="frm">
+			Sexo
+			<h:selectOneRadio value="#{perfilUsuarioBean.sexo}" layout="lineDirection">
+				<f:selectItem itemValue="M" itemLabel="Masculino"/>
+				<f:selectItem itemValue="F" itemLabel="Feminino"/>
+			</h:selectOneRadio>
+			
+			<br/>
+			
+			<h:selectBooleanCheckbox value="#{perfilUsuarioBean.receverNovidades}"/>
+			Gostaria de receber novidades da empresa por e-mail
+			
+			<br/><br/>
+			
+			Linguagens favoritas
+			<h:selectManyCheckbox layout="lineDirection" value="#{perfilUsuarioBean.linguagensFavoritas}">
+				<f:selectItem itemValue="Java"/>
+				<f:selectItem itemValue="Python"/>
+				<f:selectItem itemValue="Ruby"/>
+				<f:selectItem itemValue="C++"/>
+				<f:selectItem itemValue="C#"/>
+			</h:selectManyCheckbox>
+				
+			<h:commandButton value="Enviar" action="#{perfilUsuarioBean.enviar}" />
+		</h:form>
+	</h:body>
+</html>
+```
+
+```xhtml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Confirmação</title>
+	</h:head>
+	<h:body>
+		Sexo: #{perfilUsuarioBean.sexo}
+		<br/><br/>
+		
+		Receber novidades:
+		#{perfilUsuarioBean.receverNovidades ? 'Sim' : 'Não'}
+		<br/><br/>
+		
+		Linguagens favoritas:
+		<ul>
+			<ui:repeat var="linguagem" value="#{perfilUsuarioBean.linguagensFavoritas}">
+				<li>#{linguagem}</li>
+			</ui:repeat>
+		</ul>
+
+	</h:body>
+</html>
+```
+
 #### 3.5-botoes-e-links-v1
 
 #### 3.6-paineis-v1
