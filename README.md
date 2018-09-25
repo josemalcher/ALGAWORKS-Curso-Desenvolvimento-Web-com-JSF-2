@@ -1013,6 +1013,140 @@ public class CadastroCVBean {
 
 #### 3.3-menus-caixas-de-listagem-e-itens-de-selecao-v1
 
+```java
+package com.cursojsf2;
+import javax.faces.bean.ManagedBean;
+
+@ManagedBean
+public class TimeFavoritoBean {
+	private String time;
+
+	public void escolher() {
+		System.out.println("Time selecionado: " + this.getTime());
+	}
+	
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
+}
+
+```
+
+```xhtml
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Time Favorito</title>
+	</h:head>
+	<h:body>
+		<h:form id="frm">
+			<h1>Escolha seu time favorito</h1>
+			
+			<!-- Experimente também o componente selectOneListbox -->
+			<h:selectOneMenu id="time" value="#{timeFavoritoBean.time}">
+				<f:selectItem itemValue="Corinthians" itemLabel="Timão" />
+				<f:selectItem itemValue="Flamengo" itemLabel="Mengão" />
+				<f:selectItem itemValue="Palmeiras"/>
+				<f:selectItem itemValue="Santos"/>
+				<f:selectItem itemValue="São Paulo"/>
+				<f:selectItem itemValue="Vasco"/>
+				<f:selectItem itemValue="Outro"/>
+			</h:selectOneMenu>
+				
+			<h:commandButton value="Escolher" action="#{timeFavoritoBean.escolher}" />
+			
+			<br/><br/>
+			
+			<div>
+				<h:outputText value="#{timeFavoritoBean.time}" rendered="#{not empty timeFavoritoBean.time}" 
+					style="background-color: red; color: #fff; font-size: 32px; font-family: Arial"/>
+			</div>
+		</h:form>
+	</h:body>
+</html>
+```
+
+```java
+package com.cursojsf2;
+
+import javax.faces.bean.ManagedBean;
+
+@ManagedBean
+public class TimesFavoritosBean {
+
+	private String[] times;
+
+	public void escolher() {
+		System.out.println("-------------");
+		System.out.println("Times selecionados: ");
+		for (String time : this.getTimes()) {
+			System.out.println(time);
+		}
+	}
+	
+	public String[] getTimes() {
+		return times;
+	}
+
+	public void setTimes(String[] times) {
+		this.times = times;
+	}
+
+}
+```
+
+```xhtml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Times favoritos</title>
+	</h:head>
+	<h:body>
+		<h:form id="frm">
+			<h1>Escolha seus times favoritos</h1>
+			
+			<!-- Experimente também o componente selectManyListbox -->
+			<h:selectManyMenu id="times" value="#{timesFavoritosBean.times}">
+				<f:selectItem itemValue="Corinthians" itemLabel="Timão" />
+				<f:selectItem itemValue="Flamengo" itemLabel="Mengão" />
+				<f:selectItem itemValue="Palmeiras"/>
+				<f:selectItem itemValue="Santos"/>
+				<f:selectItem itemValue="São Paulo"/>
+				<f:selectItem itemValue="Vasco"/>
+				<f:selectItem itemValue="Outro"/>
+			</h:selectManyMenu>
+			
+			<br/>
+			<h:commandButton value="Escolher" action="#{timesFavoritosBean.escolher}" />
+			<br/>
+			
+			<ul>
+				<ui:repeat var="time" value="#{timesFavoritosBean.times}">
+					<li>#{time}</li>
+				</ui:repeat>
+			</ul>
+		</h:form>
+	</h:body>
+</html>
+```
+
+
+
 #### 3.4-campos-de-checagem-e-botoes-radio-v1
 
 #### 3.5-botoes-e-links-v1
