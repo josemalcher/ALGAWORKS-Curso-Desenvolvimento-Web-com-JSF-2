@@ -1389,6 +1389,131 @@ public class FormularioBean {
 
 #### 3.7-mensagens-v1
 
+```java
+package com.cursojsf2;
+
+import java.util.Calendar;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
+import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+
+@ManagedBean
+public class CadastroUsuarioBean {
+	private String nome;
+	private String email;
+	private String senha;
+
+	public void cadastrar() {
+		if (this.getNome() == null || this.getNome().length() < 10) {
+			this.adicionarMensagem("frm:nome", FacesMessage.SEVERITY_ERROR, "Nome incompleto.",
+					"Favor informar seu nome completo.");
+		}
+
+		if (hojeEhDiaDeDescanso()) {
+			this.adicionarMensagem(null, FacesMessage.SEVERITY_WARN, "Hoje é dia de descanso.",
+					"Você não pode cadastrar usuários hoje.");
+		}
+
+		FacesContext context = FacesContext.getCurrentInstance();
+		if (!context.getMessages().hasNext()) {
+			// aqui você poderia cadastrar o usuário no banco de dados
+
+			this.adicionarMensagem(null, FacesMessage.SEVERITY_INFO, "Usuário cadastrado.",
+					"O usuário foi cadastrado com sucesso!");
+		}
+	}
+
+	private void adicionarMensagem(String clientId, Severity severity, String summary, String detail) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		FacesMessage message = new FacesMessage(severity, summary, detail);
+
+		context.addMessage(clientId, message);
+	}
+
+	private boolean hojeEhDiaDeDescanso() {
+		return Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+}
+
+```
+
+```xhtml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Cadastro de usuário</title>
+	</h:head>
+	<h:body>
+		<h:form id="frm">
+			<h:messages layout="table" 
+				errorStyle="color: red" 
+				infoStyle="color: green"
+				warnStyle="color: orange" 
+				fatalStyle="color: gray" 
+				showDetail="true" 
+				showSummary="false" 
+				globalOnly="true" />
+		
+			<h:panelGrid columns="2">
+				<f:facet name="header">
+					Cadastro de novo usuário do sistema
+				</f:facet>
+				
+				<h:outputLabel value="Nome:" for="nome"/>
+				<h:panelGroup>
+					<h:inputText size="50" value="#{cadastroUsuarioBean.nome}" id="nome"/>
+					<h:message for="nome"/>
+				</h:panelGroup>
+				
+				<h:outputLabel value="E-mail:" for="email"/>
+				<h:panelGroup>
+					<h:inputText size="50" value="#{cadastroUsuarioBean.email}" id="email"/>
+					<h:message for="email"/>
+				</h:panelGroup>
+				
+				<h:outputLabel value="Senha:" for="senha"/>
+				<h:inputSecret size="20" value="#{cadastroUsuarioBean.senha}" id="senha"/>
+				
+				<h:outputLabel/>
+				<h:commandButton value="Cadastrar" action="#{cadastroUsuarioBean.cadastrar}"/>
+			</h:panelGrid>
+		</h:form>
+	</h:body>
+</html>
+```
+
 #### 3.8-tabelas-de-dados-v1
 
 ```java
