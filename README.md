@@ -1391,6 +1391,125 @@ public class FormularioBean {
 
 #### 3.8-tabelas-de-dados-v1
 
+```java
+package com.cursojsf2;
+
+public class Cliente {
+	private Integer codigo;
+	private String nome;
+	private String cidade;
+	
+	public Cliente(Integer codigo, String nome, String cidade) {
+		super();
+		this.codigo = codigo;
+		this.nome = nome;
+		this.cidade = cidade;
+	}
+	public Integer getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public String getCidade() {
+		return cidade;
+	}
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+	
+	
+}
+
+```
+
+```java
+package com.cursojsf2;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.bean.ManagedBean;
+
+@ManagedBean
+public class ConsultaClienteBean {
+
+	private List<Cliente> clientes = new ArrayList<Cliente>();
+	
+	public List<Cliente> getClientes(){
+		return this.clientes;
+	}
+
+	public void consultar() {
+		this.getClientes().add(new Cliente(1, "Jose Malcher", "Belém"));
+		this.getClientes().add(new Cliente(2, "Jose Silva", "Cametá"));
+		this.getClientes().add(new Cliente(3, "Jose Parente", "SP"));
+		this.getClientes().add(new Cliente(4, "Jose Stelio", "RIO"));
+		this.getClientes().add(new Cliente(5, "Jose Junior", "Floripa"));
+		this.getClientes().add(new Cliente(6, "Jose Maria", "SP"));
+		this.getClientes().add(new Cliente(7, "Jose Carlos", "EUA"));
+	}
+	
+}
+
+```
+
+```xhtml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Consulta de clientes</title>
+</h:head>
+<h:body>
+	<h:form id="frm">
+		<h:commandButton value="Consultar"
+			action="#{consultaClienteBean.consultar}" />
+
+		<h:dataTable value="#{consultaClienteBean.clientes}" var="item"
+			border="1" rendered="#{not empty consultaClienteBean.clientes}">
+
+			<h:column>
+				<f:facet name="header">
+						Código
+					</f:facet>
+
+				<h:outputText value="#{item.codigo}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">
+						Nome
+					</f:facet>
+
+				<h:outputText value="#{item.nome}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">
+						Cidade
+					</f:facet>
+
+				<h:outputText value="#{item.cidade}" />
+			</h:column>
+
+		</h:dataTable>
+
+	</h:form>
+</h:body>
+</html>
+```
+
 #### 3.9-componentes-dentro-de-celulas-v1
 
 #### 3.10-aplicando-estilos-em-tabelas-v1
