@@ -1932,7 +1932,13 @@ function selecionarCidade(nome) {
 
 #### 3.13-projeto-do-curso-protitipando-tela-de-consulta-de-lanca
 
+
+
+
 #### 3.14-projeto-do-curso-prototipando-tela-de-novo-lancamento-v
+
+
+
 
 [Voltar ao Índice](#indice)
 
