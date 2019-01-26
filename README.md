@@ -2129,6 +2129,132 @@ public class EstoqueBean {
 
 #### 4.2-customizando-mensagens-de-erro-de-conversao-v1
 
+- CustomizandoMensagensErroConversao\WebContent\WEB-INF\faces-config.xml
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+    version="2.2">
+    
+	<application>
+		<message-bundle>com.cursojsf2.resources.Messages</message-bundle>
+	</application>
+
+</faces-config>
+
+```
+
+- CustomizandoMensagensErroConversao\src\com\cursojsf2\resources\Messages.properties
+
+```
+javax.faces.converter.DateTimeConverter.DATE=Data inválida.
+javax.faces.converter.DateTimeConverter.DATE_detail=O campo ''{2}'' não foi informado com uma data válida.
+javax.faces.converter.IntegerConverter.INTEGER=Número inválido.
+javax.faces.converter.IntegerConverter.INTEGER_detail=O campo ''{2}'' não foi informado com um número válido.
+javax.faces.converter.ShortConverter.SHORT=Número inválido.
+javax.faces.converter.ShortConverter.SHORT_detail=O campo ''{2}'' não foi informado com um número válido.
+javax.faces.converter.NumberConverter.NUMBER=Número inválido.
+javax.faces.converter.NumberConverter.NUMBER_detail=O campo ''{2}'' não foi informado com um número válido.
+```
+
+- CustomizandoMensagensErroConversao\WebContent\ChecagemEstoque.xhtml
+
+```xhtml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Estoque</title>
+	</h:head>
+	<h:body>
+		<h:form id="frm">
+			
+			<h:messages showSummary="false" showDetail="true"/>
+			
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Código do produto:"/>
+				<h:panelGroup>
+					<h:inputText id="codigoProduto" value="#{estoqueBean.itemEstoque.codigoProduto}"
+							label="Código do produto">
+						<f:converter converterId="javax.faces.Integer"/>
+					</h:inputText>
+					<h:message for="codigoProduto" showSummary="true" showDetail="false"/>
+				</h:panelGroup>
+				
+				<h:outputLabel value="Descrição:"/>
+				<h:inputText id="descricao" value="#{estoqueBean.itemEstoque.descricao}"/>
+				
+				<h:outputLabel value="Quantidade:"/>
+				<h:panelGroup>
+					<h:inputText id="quantidade" value="#{estoqueBean.itemEstoque.quantidade}"
+							label="Quantidade"/>
+					<h:message for="quantidade" showSummary="true" showDetail="false"/>
+				</h:panelGroup>
+				
+				<h:outputLabel value="Valor unitário:"/>
+				<h:panelGroup>
+					<h:inputText id="valorUnitario" value="#{estoqueBean.itemEstoque.valorUnitario}"
+							label="Valor unitário">
+						<f:convertNumber minFractionDigits="2" locale="pt_BR"/>
+					</h:inputText>
+					<h:message for="valorUnitario" showSummary="true" showDetail="false"/>
+				</h:panelGroup>
+				
+				<h:outputLabel value="Data da checagem:"/>
+				<h:panelGroup>
+					<h:inputText id="dataChecagem" value="#{estoqueBean.itemEstoque.dataChecagem}"
+							label="Data da checagem">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:inputText>
+					<h:message for="dataChecagem" showSummary="true" showDetail="false"/>
+				</h:panelGroup>
+				
+				<h:outputLabel/>
+				<h:commandButton value="Incluir" action="#{estoqueBean.incluir}"/>
+			</h:panelGrid>
+			
+			<h:dataTable var="item" value="#{estoqueBean.itensEstoque}" border="1">
+				<h:column>
+					<f:facet name="header">Código do produto</f:facet>
+					<h:outputText value="#{item.codigoProduto}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Descrição</f:facet>
+					<h:outputText value="#{item.descricao}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Quantidade</f:facet>
+					<h:outputText value="#{item.quantidade}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Valor unitário</f:facet>
+					<h:outputText value="#{item.valorUnitario}">
+						<f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR"/>
+					</h:outputText>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Data da checagem</f:facet>
+					<h:outputText value="#{item.dataChecagem}">
+						<f:convertDateTime pattern="dd, MMMM yyyy" locale="pt_BR"/>
+					</h:outputText>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	</h:body>
+</html>
+```
+
 #### 4.4-usando-validadores-v1
 
 #### 4.5-customizando-mensagens-de-erro-de-validacao-v1
